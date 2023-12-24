@@ -242,6 +242,30 @@ lazy_static! {
             pressure_change_with_event as extern "C" fn(&Object, Sel, id),
         );
         decl.add_method(
+            sel!(magnifyWithEvent:),
+            magnify_with_event as extern "C" fn(&Object, Sel, id),
+        );
+        decl.add_method(
+            sel!(smartMagnifyWithEvent:),
+            smart_magnify_with_event as extern "C" fn(&Object, Sel, id),
+        );
+        decl.add_method(
+            sel!(rotateWithEvent:),
+            rotate_with_event as extern "C" fn(&Object, Sel, id),
+        );
+        decl.add_method(
+            sel!(swipeWithEvent:),
+            swipe_with_event as extern "C" fn(&Object, Sel, id),
+        );
+        decl.add_method(
+            sel!(touchesBeganWithEvent:),
+            touches_began_with_event as extern "C" fn(&Object, Sel, id),
+        );
+        decl.add_method(
+            sel!(beginGestureWithEvent:),
+            begin_gesture_with_event as extern "C" fn(&Object, Sel, id),
+        );
+        decl.add_method(
             sel!(_wantsKeyDownForEvent:),
             wants_key_down_for_event as extern "C" fn(&Object, Sel, id) -> BOOL,
         );
@@ -1072,6 +1096,52 @@ extern "C" fn pressure_change_with_event(this: &Object, _sel: Sel, event: id) {
     trace!("Completed `pressureChangeWithEvent`");
 }
 
+extern "C" fn magnify_with_event(this: &Object, _sel: Sel, event: id) {
+    trace!("Triggered `magnifyWithEvent`");
+
+    unsafe {
+        let magnification = event.magnification();
+        trace!("M: {}", magnification);
+    }
+
+    trace!("Completed `magnifyWithEvent`");
+}
+
+extern "C" fn smart_magnify_with_event(this: &Object, _sel: Sel, event: id) {
+    trace!("Triggered `smartMagnifyWithEvent`");
+
+    trace!("Completed `smartMagnifyWithEvent`");
+}
+
+extern "C" fn rotate_with_event(this: &Object, _sel: Sel, event: id) {
+    trace!("Triggered `rotateWithEvent`");
+
+    unsafe {
+        let rotation = event.rotation();
+        trace!("R: {}", rotation);
+    }
+
+    trace!("Completed `rotateWithEvent`");
+}
+
+extern "C" fn swipe_with_event(this: &Object, _sel: Sel, event: id) {
+    trace!("Triggered `swipeWithEvent`");
+
+    trace!("Completed `swipeWithEvent`");
+}
+
+extern "C" fn touches_began_with_event(this: &Object, _sel: Sel, event: id) {
+    trace!("Triggered `touchesBeganWithEvent`");
+
+    trace!("Completed `touchesBeganWithEvent`");
+}
+
+
+extern "C" fn begin_gesture_with_event(this: &Object, _sel: Sel, event: id) {
+    trace!("Triggered `beginGestureWithEvent`");
+
+    trace!("Completed `beginGestureWithEvent`");
+}
 // Allows us to receive Ctrl-Tab and Ctrl-Esc.
 // Note that this *doesn't* help with any missing Cmd inputs.
 // https://github.com/chromium/chromium/blob/a86a8a6bcfa438fa3ac2eba6f02b3ad1f8e0756f/ui/views/cocoa/bridged_content_view.mm#L816
